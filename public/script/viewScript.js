@@ -28,7 +28,6 @@ function viewDetails(id) {
             document.getElementById('UsernameDetails').innerHTML = data.username;
         });
 }
-
 function calculateAge(dateOfBirth) {
     const dob = new Date(dateOfBirth);
     const currentDate = new Date();
