@@ -1,0 +1,160 @@
+
+       <%- include('head') %>
+       <body>
+          <div class="container px-0">
+            <div class="main_page">
+
+                <!-- side_section -->
+        <%- include('sidebar') %>
+        
+      
+        <div class="main_page_section" style="background: var(--secondary-grey-300, #F4F7FE);">
+            <div class="main_page_content">
+                <div class="page_content">
+                    <div class="page_content_heading">
+                        <h5>Dashboard / Employees</h5>
+                        <h1>Employees</h1>
+                    </div>
+                    <div class="search_section" >
+                        
+                        <input type="search" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome"  id="searchInput" onkeyup="searchInput()">
+                        <i class="fa-regular fa-bell"></i>
+                        <img src="/public/img/Avatar Style 6search_bar_icon.png" alt="">
+                    </div>
+                </div>
+                <!-- employee_list_section -->
+                <div class="page_content_details">
+                    <div class="page_content_details_header">
+                        <h3>Employees List</h3>
+                        <select class="form-select_" id="list_employee" aria-label="Default select example">
+                            <option value="5" selected>5</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                        </select>
+                        <span id="total_employee"></span>
+                        <button type="button" class="btn_filled" onclick="btn_filled()">Add Employee</button>
+                    </div>
+
+                    <!-- <div class="page_content_section_bar">
+                        <select class="menu_form-select" aria-label="Default select example">
+                            <option selected>Sl.No</option>
+                        </select>
+                    </div> -->
+                    <div class="page_content_section_table">
+                        <table class="table-body ">
+                            <thead class="table_heading">
+                                <tr>
+                                    <th class="col pe-3">
+
+                                        <select class="menu_form-select" aria-label="Default select example">
+                                            <option selected>Sl.No </option>
+                                        </select>
+                                    </th>
+                                    <th scope="col">
+                                        <select class="menu_form-select" aria-label="Default select example">
+                                            <option selected>Name </option>
+                                        </select>
+                                    </th>
+                                    <th class="col">
+                                        <select class="menu_form-select" aria-label="Default select example">
+                                            <option selected>Email </option>
+                                        </select>
+                                    </th>
+                                    <th class="col pe-5">
+                                        <select class="menu_form-select" aria-label="Default select example">
+                                            <option selected>Phone </option>
+                                        </select>
+                                    </th>
+                                    <th class="col pe-3">
+                                        <select class="menu_form-select" aria-label="Default select example">
+                                            <option selected>Gender </option>
+                                        </select>
+                                    </th>
+                                    <th scope="col pe-4">
+                                        <select class="menu_form-select" aria-label="Default select example">
+                                            <option selected>DOB </option>
+                                        </select>
+                                    </th>
+                                    <th class="col pe-3">
+                                        <select class="menu_form-select" aria-label="Default select example">
+                                            <option selected>Country </option>
+                                        </select>
+                                    </th>
+                                    <th class="col pe-3">
+
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="table_text" id="table_text">
+                                
+                                <!-- <tr>
+                                    
+                                    <td class="d">#01</td>
+                                    <td><img src="asset/Rectangle 3461_list_image.png" alt="">Mr. Michael Johnson
+                                    </td>
+                                    <td>michaeljohnson@example.com</td>
+                                    <td>5551234567</td>
+                                    <td>Male</td>
+                                    <td>10 December 1985</td>
+                                    <td class="col_section">USA </td>
+                                    <td class="menu_icon"><button class="three_dot_list"
+                                            onclick="three_dot_list()"><i class="fa-solid fa-ellipsis"></i></button>
+                                    </td>
+                                    <div class="employee_action_btn" onclick="employee_action()">
+                                        <button class="employee_btn view_btn"><i class="fa-solid fa-eye"></i>View
+                                            Details</button>
+                                        <button class="employee_btn edit_btn" onclick="edit_btn()"><i
+                                                class="fa-solid fa-pen"></i>Edit</button>
+                                        <button class="employee_btn delete_btn" onclick="delete_form()"><i
+                                                class="fa-regular fa-trash-can"></i>Delete</button>
+                                                <button class="close_btn" onclick="close_btn()"><i class="fa-solid fa-xmark"></i></button>
+                                    </div>
+                                </tr> -->
+                                
+                              
+                            </tbody>
+                        </table>
+                        <td class="no"> <div id="noEmployeeMessage" style="display: none;">No employees found</div></td>
+                       
+                    </div>
+                </div>
+                
+                <!-- end.employee_list_section -->
+                <div class="pagination_content py-4">
+                    <div class="pagination" id="pagination">
+                        <a id="pageleft">&lt;</a>
+                        <div class="pagination" id="Page_Num_Btns"></div>
+                        <a  id="pageright">&gt;</a>
+                        <!-- <a id="prevPage">&lt;</a>
+                        <a id="currentPage"></a>
+                        
+                        <a id="nextPage">&gt;</a> -->
+                    </div>
+                </div>
+
+            </div>
+            <!-- footer -->
+            <div class="powered_by_section">
+                <h6 class="footer_text">© 2023 All Rights Reserved. Stackup</h6>
+                <h6 class="pe-4">Terms of Use</h6>
+                <h6>Privacy Policy</h6>
+            </div>
+        </div>
+    </div>
+
+    <%- include('addEmployee') %>
+    <%- include('editEmployee') %>
+    <%- include('deleteForm') %>
+    <%- include('addedPopup') %>
+    <%- include('editedPopup') %>
+    <%- include('deletedPopup') %>
+  </div>
+</div>
+<script src="/public/script/script.js"></script>
+
+
+
+</body>
+
+</html>

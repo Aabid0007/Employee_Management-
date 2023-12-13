@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Profile</title>
+    <link rel="stylesheet" href="/public/css/viewStyle.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap"
+      rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+      crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap"
+      rel="stylesheet">
+  
+  </head>
+<body>
+  <div class="container px-0">
+    <div class="main_page">
+      <!-- side_section -->
+    <%- include('sidebar') %>
+
+      <div class="main_page_section" style="background: var(--secondary-grey-300, #F4F7FE);">
+        <div class="main_page_content">
+          <div class="page_content">
+            <div class="page_content_heading">
+              <h5 id="headingName">Dashboard / Employees / Employee Details</h5>
+              <h1>Employee Details</h1>
+            </div>
+            <div class="search_section">
+              <input type="search" placeholder="Search&nbsp;&nbsp;&#128270">
+              <i class="fa-regular fa-bell"></i>
+              <img src="/public/img/Avatar Style 6search_bar_icon.png" alt="">
+            </div>
+          </div>
+          <!-- employee_list_section -->
+          <div class="container">
+
+            <div class="row d-flex justify-content-center">
+              <div class="card col-md-8 pt-3 pb-5 mb-4 px-3">
+                <div class="profile_Background_img">
+                  <img src="/public/img/viewdetails-img/Background ImageProfile Background .png" class="card-img-top" alt="...">
+                </div>
+                <div class="employee_img" id="EmployeeProfilePic" >
+                  
+                </div>
+                <!-- employye-name -->
+                <div class="row">
+                  <div class="card-body pt-5 mt-3">
+                    <h5 class="employee_name" id="EmployeeName"></h5>
+                    <p class="card-text" id="EmployeeEmail"></p>
+                  </div>
+                </div>
+                <!-- employee-details -->
+                <!-- row.1 -->
+                <div class="form_contant">
+                  <div class="row mt-3">
+                    <div class="col-md-4">
+                      <div class="form-control py-3 px-3">
+                        <label>Gender</label>
+                        <h4 class="mt-2" id="Gender"></h4>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-control py-3 px-3">
+                        <label>Age</label>
+                        <h4 class="mt-2" id="Age"></h4>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-control py-3 px-3">
+                        <label>Date of Birth</label>
+                        <h4 class="mt-2" id="Dob"></h4>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- row.2 -->
+                  <div class="row mt-4">
+                    <div class="col-md-6">
+                      <div class="form-control py-3 px-3">
+                        <label>Mobile Number</label>
+                        <h4 class="mt-2" id="PhoneNumberDetails"></h4>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-control py-3 px-3">
+                        <label>Qualifications</label>
+                        <h4 class="mt-2" id="QualificationsDetails"></h4>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- row.3 -->
+                  <div class="row mt-4 mb-2">
+                    <div class="col-md-6">
+                      <div class="form-control py-3 px-3">
+                        <label>Address</label>
+                        <h4 class="mt-2 mb-4" id="AddressDetails"></h4>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-control py-3 px-3">
+                        <label>Username</label>
+                        <h4 class="mt-2 pb-2 mb-3" id="UsernameDetails"></h4>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="row pt-4">
+                    <div class="col d-flex justify-content-end gap-2">
+                      <button class="btn-action edit_details"  id="deleteView" onclick="deleteEmp()">Delete</button>
+                      <!-- </div> -->
+
+                      <button class="btn-action delete_btn" onclick="EditDetails()" >Edit Details</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- footer -->
+        <div class="powered_by_section mt-5">
+          <h6 class="footer_text">© 2023 All Rights Reserved. Stackup</h6>
+          <h6 class="pe-4">Terms of Use</h6>
+          <h6>Privacy Policy</h6>
+        </div>
+
+      </div>
+    </div>
+</div>
+<!-- -------------- delete-form-start  ------------------->
+  <%- include('deleteForm') %>
+<!-- -------------- delete-form-end ---------------- -->
+
+  <!-- employee-delete-popup-message -->
+ <%- include('deletedPopup') %>
+ <!-- edit_employee -->
+
+ <%- include('editEmployee') %>
+ <!-- employee-edited-popup message -->
+ <%- include('editedPopup') %>
+
+    <script src="/public/script/viewScript.js"></script>
+
+</body>
+
+</html>

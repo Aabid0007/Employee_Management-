@@ -1,0 +1,147 @@
+ <!-- edit_employee -->
+ <div class="edit_employee">
+    <div class="contanier">
+
+        <div class="col-md-12 add-content py-3 rounded-4 px-3">
+            <form id="edit_employee_form" action="javascript:void(0);" method="POST" >
+            <div class="employee_form_heading">
+                <label class="heading my-3">Edit Employee</label>
+                <button class="close_btn" onclick="edit_close_btn()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <!-- 1.row -->
+            <!-- edit_image_upload -->
+            <div class="row align-items-center">
+                <div class="col-md-3 box">
+                    <div class="upload card align-items-center py-4 rounded-4">
+                        <img id="edit_img" alt="">
+                    </div>
+                </div>
+                <div class="col-md-2 ">
+                    <input type="file" accept="image/*" id="edit_upload_file" hidden>
+                    <label class="image_action_btn" for="edit_upload_file"  id="edit-image">Change</label>
+                </div>
+                <span id="edit_imageError" class="error"></span>
+                
+            </div>
+
+            <!-- 2.row -->
+            <div class="row ">
+                <div class="input_box col-md-3">
+                    <label for="" class="form-label mb- mt-3">Salutation</label>
+                    <select class="form-group form-select rounded-4 py-2" id="edit_Salutation">
+                        <option selected>select </option>
+                        <option value="Mr">Mr</option>
+                        <option value="Miss">Miss</option>
+                    </select>
+                    <span id="edit_SalutationError" class="error"></span>
+                </div>
+                <div class="input_box col-md-4">
+                    <label for="" class="form-label mb-2 mt-3">First Name</label>
+                    <input type="text" class="form-control py-2 rounded-4" id="edit_firstName" placeholder="john"
+                        aria-label="First name">
+                        <span id="edit_firstNameError" class="error"></span>
+                </div>
+                <div class="input_box col-md-5">
+                    <label for="" class="form-label mb-2 mt-3">Last Name</label>
+                    <input type="text" class="form-control py-2 rounded-4" id="edit_LastName" placeholder="doe"
+                        aria-label="Last name">
+                        <span id="edit_LastNameError" class="error"></span>
+                </div>
+            </div>
+            <!-- 3.row -->
+            <div class="row ">
+                <div class="col-md-6">
+                    <label for="exampleFormControlInput1" class="form-label mt-2">Email Address</label>
+                    <input type="email" class="form-group form-control py-2 rounded-4" id="edit_Email"
+                        placeholder="mail@simmmple.com">
+                        <span id="edit_EmailError" class="error"></span>
+                </div>
+                <div class="col-md-6">
+                    <label for="Mobile Number" class="form-label mt-2">Mobile Number</label>
+                    <input type="tel" class="form-group form-control py-2 rounded-4" id="edit_Phone"
+                        placeholder="enter mobile number">
+                        <span id="edit_PhoneError" class="error"></span>
+                </div>
+            </div>
+            <!-- 4.row -->
+            <div class="row ">
+                <div class="col-md-6">
+                    <label for="Date of Birth" class="form-label mt-2">Date of Birth</label>
+                    <input type="date" class="form-control py-2 rounded-4" id="edit_dob" placeholder="select date of birth">
+                        <span id="edit_dobError" class="error"></span>
+                </div>
+                <div class="col-md-6 ">
+                    <label for="Gender" class="form-label mt-2">Gender</label>
+                    <div class="radio_section mt-2">
+                        <div class="form-check_form form-check-inline d-flex align-items-center">
+                            <input class="form-check-input_ me-1" id="male" type="radio" name="edit_gender" value="male">
+                            <label class="form-check-label" for="inlineRadio">Male</label>
+                        </div>
+                        <div class="form-check_form form-check-inline d-flex align-items-center ">
+                            <input class="form-check-input_ me-1" id="female" type="radio" name="edit_gender" value="female">
+                            <label class="form-check-label" for="inlineRadio">female</label>
+                        </div>
+                    </div>
+                    <span id="edit_genderError" class="error"></span>
+                </div>
+            </div>
+            <!-- extra_add -->
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="qualifications" class="form-label form mt-2">Qualifications</label>
+                    <input type="text" class="form-control py-2 rounded-4" id="edit_Qualifications" placeholder="enter qualifications">
+                    <span id="edit_QualificationsError" class="error"></span>
+                </div>
+            </div>
+            <!-- 5.row -->
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="inputAddress" class="form-label mt-2">Address</label>
+                    <input type="text" class="form-control py-2 rounded-4" id="edit_Address" placeholder="enter address">
+                    <span id="edit_AddressError" class="error"></span>
+                </div>
+            </div>
+            <!-- 6.row -->
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="edit_country" class="form-label mt-2">Country</label>
+                    <select class="form-group form-select py-2 rounded-4" id="edit_country">
+                        <option selected>select country</option>
+                        <option value="India">India</option>
+                        <option value="Usa">Usa</option>
+                        <option value="Etc">Etc..</option>
+                    </select>
+                    <span id="edit_countryError" class="error"></span>
+                </div>
+                <div class="col-md-6">
+                    <label for="edit_State" class="form-label mt-2">State</label>
+                    <select class="form-group form-select py-2 rounded-4" id="edit_State" >
+                        <option selected>select state</option>
+                        <option value="Kerala">Kerala</option>
+                        <option value="Tamilnadu">Tamilnadu</option>
+                        <option value="Etc..">Etc..</option>
+                    </select>
+                    <span id="edit_StateError" class="error"></span>
+                </div>
+            </div>
+            <!-- 7.row -->
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="city" class="form-label mt-2">City</label>
+                    <input type="text" class="form-control py-2 rounded-4" id="edit_City" placeholder="enter city" aria-label="City">
+                    <span id="edit_CityError" class="error"></span>
+                </div>
+                <div class="col-md-6">
+                    <label for="pin" class="form-label mt-2">Pin/Zip</label>
+                    <input type="text" class="form-control py-2 rounded-4" id="edit_pin" placeholder="enter zip/pin" aria-label="Zip" required>
+                    <span id="edit_pinError" class="error"></span>
+                </div>
+            </div>
+            <div class="col-md-12 d-flex justify-content-end gap-3 my-2 pt-4 pb-1 rounded-4">
+                <button class="btn btn-light rounded-4" onclick="edit_close_btn()">Cancel</button>
+                <button type="submit"  class="btn btn-primary left rounded-4" id="savechange">Save Changes</button>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>
