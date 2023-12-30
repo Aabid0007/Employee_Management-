@@ -2,9 +2,9 @@ function btn_filled() {
   const btn_filled = document.getElementsByClassName("add_employee")[0];
   btn_filled.style.display = "block";
   const overlay = document.getElementsByClassName("overlay")[0];
-
   overlay.style.display = "block";
 }
+
 // add_employee_close_btn
 function close_btn() {
   var close_btn = document.getElementsByClassName("add_employee")[0];
@@ -17,13 +17,93 @@ function close_btn() {
 }
 
 
+// ---add-popup-modal-----start
+function showPopup() {
+  close_btn();
+  var overlay = document.getElementsByClassName("overlay")[0];
+  overlay.style.display = "block";
+  document.getElementById("employee_add").style.display = "block";
+  clearForm();
+}
+function closePopup() {
+  document.getElementById("employee_add").style.display = "none";
+  var overlay = document.getElementsByClassName("overlay")[0];
+  overlay.style.display = "none";
+}
 
+// --delete-popup-modal-----start
+function deleteshowPopup() {
+  var overlay = document.getElementsByClassName("overlay")[0];
+  overlay.style.display = "block";
+  document.getElementById("employee_delete").style.display = "block";
+}
+function PopupDeleteclose() {
+  document.getElementById("employee_delete").style.display = "none";
+  var overlay = document.getElementsByClassName("overlay")[0];
+  overlay.style.display = "none";
+}
+
+// --edited-popup-modal------start
+function EditedshowPopup() {
+  var overlay = document.getElementsByClassName("overlay")[0];
+  overlay.style.display = "block";
+  document.getElementById("employee_edited").style.display = "block";
+  clearForm();
+}
+function PopupEditedclose() {
+  document.getElementById("employee_edited").style.display = "none";
+  var overlay = document.getElementsByClassName("overlay")[0];
+  overlay.style.display = "none";
+  location.reload();
+  clearForm();
+}
+
+
+// three-dot-open-form............start
+function three_dot_list(id) {
+  const three_dot_list = document.getElementById("employee_action_btn");
+  console.log(id);
+  three_dot_list.innerHTML = `
+    <a href="viewDetails?id=${id}"><button class="employee_btn view_btn"><i class="fa-solid fa-eye"></i>View Details</button></a>
+    <button class="employee_btn edit_btn" onclick="edit_btn('${id}')"><i class="fa-solid fa-pen"></i>Edit</button>
+    <button class="employee_btn delete_btn" onclick="open_delete_form('${id}')"><i class="fa-regular fa-trash-can"></i>Delete</button>
+  `
+  three_dot_list.style.display = "block";
+
+  // three dot arrange...............................
+  const moreOptionToggles = document.querySelectorAll(".three_dot_list");
+  moreOptionToggles.forEach((btn) => {
+    btn.addEventListener("click", (event) => {
+      const buttonRect = event.target.getBoundingClientRect();
+      const btnActive = document.querySelector(".employee_action_btn");
+      btnActive.style.top = buttonRect.top - 210 + "px";
+      btnActive.style.display =
+        btnActive.style.display === "none" || btnActive.style.display === "" ? "block" : "none";
+      event.stopPropagation();
+    });
+  });
+
+  // screen_click_to_closing........start
+  function closeMenu() {
+    three_dot_list.style.display = "none";
+    document.removeEventListener("mousedown", handleOutsideClick);
+  }
+  function handleOutsideClick(event) {
+    if (!three_dot_list.contains(event.target)) {
+      closeMenu();
+    }
+  }
+  document.addEventListener("mousedown", handleOutsideClick);
+}
+
+
+
+// employee data showing on table body 
 function employeeDisplay(data, TotalCountOnPage) {
   let temp = "";
 
   for (var i = 0; i < data.length; i++) {
     const employee = data[i];
-
     temp += `<tr id="selectNow">
       <td>#0${(CurrentPage - 1) * TotalCountOnPage + i + 1}</td>
       <td>
@@ -46,28 +126,25 @@ function employeeDisplay(data, TotalCountOnPage) {
         </div>
       </td>
       <div class="employee_action_btn" id="employee_action_btn"></div>
-    
     </tr>`;
   }
-
   document.getElementById("table_text").innerHTML = temp;
 }
 
 
 
-// get employee
-// .fetch-data.................start
 get_emp();
 var isFetching = false;
 var CurrentPage = 1;
 
 
+// get employee
+// read-employee..........start
 function get_emp() {
   if (isFetching) {
-    return; 
+    return;
   }
   isFetching = true;
-  
   const employeeCountChange = document.getElementById("list_employee");
   const TotalCountOnPage = employeeCountChange.value;
 
@@ -79,31 +156,28 @@ function get_emp() {
     })
     .then((data) => {
       isFetching = false;
-      // -------- list-select-----start
-      employeeCountChange.addEventListener("change", get_emp);
-      // -------- list-select-----end
 
+      // --list-employee-length-----start
+      employeeCountChange.addEventListener("change", get_emp);
       const total_employee = document.getElementById("total_employee");
       total_employee.innerHTML = `of ${data.Totalemployees.length}`;
+      // --list-employee-length-----end
 
       const totalPages = Math.ceil(
         data.Totalemployees.length / TotalCountOnPage
       );
       pagination(totalPages);
-
       employeeDisplay(data.employees, TotalCountOnPage);
     })
     .catch((error) => {
       console.error("Error fetching data:", error);
-      isFetching = false; 
+      isFetching = false;
     });
 }
 
 
 
-// ...........pagination............................start
-
-
+// ...pagination...............start
 function pagination(totalPages) {
   var pgnum = document.getElementById("Page_Num_Btns");
   let temp = "";
@@ -111,9 +185,7 @@ function pagination(totalPages) {
   for (let i = 1; i <= totalPages; i++) {
     temp += `<button id="page${i}">${i}</button>`;
   }
-
   pgnum.innerHTML = temp;
-
   pgnum.addEventListener("click", function (e) {
     if (e.target.tagName === "BUTTON") {
       const pageNumber = parseInt(e.target.textContent);
@@ -157,14 +229,12 @@ function pagination(totalPages) {
 }
 
 
-
-// ----------add-employee------------------------start
+// -----add-employee--------------start
 const addButton = document.getElementById("add_employee");
 addButton.addEventListener("click", (e) => {
   e.preventDefault();
 
   const isValid = validateForm();
-
   if (!isValid) {
     return;
   }
@@ -205,9 +275,7 @@ addButton.addEventListener("click", (e) => {
   formData.append("username", firstName);
   formData.append("password", phone);
 
-
   const apiUrl = "http://localhost:5001/api/employees";
-
   fetch(apiUrl, {
     method: "POST",
     body: formData,
@@ -223,9 +291,8 @@ addButton.addEventListener("click", (e) => {
     });
 
   get_emp();
-  CurrentPage= 1;
+  CurrentPage = 1;
 });
-
 
 
 
@@ -243,8 +310,7 @@ function open_delete_form(id) {
 }
 
 
-
-// ......... delete-method......................start
+// ........delete-Employee...........start
 function delete_employee(id) {
   fetch(`http://localhost:5001/api/employees/${id}`, {
     method: "DELETE",
@@ -261,8 +327,6 @@ function delete_employee(id) {
   delete_close_btn();
 }
 
-
-
 // delete_employee_close_form
 function delete_close_btn() {
   var close_btn = document.getElementsByClassName("delete_btn_form")[0];
@@ -270,6 +334,7 @@ function delete_close_btn() {
   var overlay = document.getElementsByClassName("overlay")[0];
   overlay.style.display = "none";
 }
+
 
 
 
@@ -312,7 +377,6 @@ function edit_btn(id) {
       document.getElementById("edit_State").value = data.state;
       document.getElementById("edit_City").value = data.city;
       document.getElementById("edit_pin").value = data.pin;
-
       get_emp();
     })
     .catch((error) => {
@@ -322,6 +386,7 @@ function edit_btn(id) {
   const editBtn = document.getElementById("savechange");
   editBtn.addEventListener("click", async (e) => {
     e.preventDefault();
+
     const isValid = editFormValidate();
     if (!isValid) {
       return;
@@ -331,7 +396,6 @@ function edit_btn(id) {
     get_emp();
   });
 }
-// ...edit_employee_data_insert.......end
 
 
 // edit_employee_close_btn
@@ -345,9 +409,8 @@ function edit_close_btn() {
 }
 
 
-// ....edit employee................start
+// ....edit employee...............start
 function editEmployee(id) {
-
   const salutation = document.getElementById("edit_Salutation").value;
   const firstName = document.getElementById("edit_firstName").value;
   const lastName = document.getElementById("edit_LastName").value;
@@ -366,7 +429,6 @@ function editEmployee(id) {
 
   const formData = new FormData();
   const edit_upload_file = document.getElementById("edit_upload_file").files[0];
-
   if (edit_upload_file) {
     formData.append("image", edit_upload_file);
   }
@@ -397,11 +459,9 @@ function editEmployee(id) {
     })
     .then((data) => {
       console.log("API Response:", data);
-
       get_emp();
       EditedshowPopup();
     })
-
     .catch((error) => {
       console.error("Error:", error);
     });
@@ -409,52 +469,12 @@ function editEmployee(id) {
 
 
 
-// three-dot-open-form............start
-function three_dot_list(id) {
-
-  const three_dot_list = document.getElementById("employee_action_btn");
-  console.log(id);
-  three_dot_list.innerHTML = `
-    <a href="viewDetails?id=${id}"><button class="employee_btn view_btn"><i class="fa-solid fa-eye"></i>View Details</button></a>
-    <button class="employee_btn edit_btn" onclick="edit_btn('${id}')"><i class="fa-solid fa-pen"></i>Edit</button>
-    <button class="employee_btn delete_btn" onclick="open_delete_form('${id}')"><i class="fa-regular fa-trash-can"></i>Delete</button>
-  `;
-  three_dot_list.style.display = "block";
-
-  // three dot arrange...............................
-  const moreOptionToggles = document.querySelectorAll(".three_dot_list");
-  moreOptionToggles.forEach((btn) => {
-    btn.addEventListener("click", (event) => {
-      const buttonRect = event.target.getBoundingClientRect();
-      const btnActive = document.querySelector(".employee_action_btn");
-      btnActive.style.top = buttonRect.top - 210 + "px";
-      btnActive.style.display =
-        btnActive.style.display === "none" || btnActive.style.display === "" ? "block" : "none";
-
-      event.stopPropagation();
-    });
-  });
-
-  // screen_click_to_closing........start
-  function closeMenu() {
-    three_dot_list.style.display = "none";
-    document.removeEventListener("mousedown", handleOutsideClick);
-  }
-  function handleOutsideClick(event) {
-    if (!three_dot_list.contains(event.target)) {
-      closeMenu();
-    }
-  }
-  document.addEventListener("mousedown", handleOutsideClick);
-}
-
 
 
 // ......searchEmployeee.....start
 function searchInput() {
   let searchKey = document.getElementById("searchInput").value;
   searchKey = searchKey.toLowerCase();
-  
   const noEmployeeMessage = document.getElementById("noEmployeeMessage");
 
   if (searchKey) {
@@ -465,25 +485,21 @@ function searchInput() {
         if (data.employee.length === 0) {
           noEmployeeMessage.style.display = "block";
         }
-        else{
+        else {
           noEmployeeMessage.style.display = "none";
         }
       })
       .catch((error) => console.error("Error:", error));
 
-  } else{
+  } else {
     get_emp();
     noEmployeeMessage.style.display = "none";
-  } 
-  
+  }
 }
 
-// .....searchEmployeee........end
 
 
-
-
-// ..image-Post-view........start
+// ...image-Post-view........start
 const upload_file = document.getElementById("upload_file");
 upload_file.addEventListener("change", uploadImage);
 
@@ -496,12 +512,10 @@ function uploadImage() {
   hidden.style.display = "none";
   cardImg.style.display = "flex";
   cardImg.style.justifyContent = "center";
-
   const border = document.getElementById("img-view");
   border.style.width = "200px";
   const imageError = (document.getElementById("imageError").style.display = "none");
 }
-// ..image-Post-view.......end
 
 
 // ---edit employee upload image-------start
@@ -511,83 +525,16 @@ edit_upload_file.onchange = function () {
   selectedImage.src = URL.createObjectURL(edit_upload_file.files[0]);
   selectedImage.style.width = "110px";
   selectedImage.style.height = "110px";
-
 };
-
-
-
-// ---add-popup-modal--------start
-function showPopup() {
-  close_btn();
-  var overlay = document.getElementsByClassName("overlay")[0];
-  overlay.style.display = "block";
-  document.getElementById("employee_add").style.display = "block";
-
-  clearForm();
-}
-
-
-function closePopup() {
-  document.getElementById("employee_add").style.display = "none";
-  var overlay = document.getElementsByClassName("overlay")[0];
-  overlay.style.display = "none";
-}
-
-
-
-// --delete-popup-modal-----start
-function deleteshowPopup() {
-  var overlay = document.getElementsByClassName("overlay")[0];
-  overlay.style.display = "block";
-  document.getElementById("employee_delete").style.display = "block";
-}
-function PopupDeleteclose() {
-  document.getElementById("employee_delete").style.display = "none";
-  var overlay = document.getElementsByClassName("overlay")[0];
-  overlay.style.display = "none";
-}
-
-
-
-// --edited-popup-modal------start
-function EditedshowPopup() {
-  var overlay = document.getElementsByClassName("overlay")[0];
-  overlay.style.display = "block";
-  document.getElementById("employee_edited").style.display = "block";
-  clearForm();
-}
-function PopupEditedclose() {
-  document.getElementById("employee_edited").style.display = "none";
-  var overlay = document.getElementsByClassName("overlay")[0];
-  overlay.style.display = "none";
-  location.reload();
-  clearForm();
-}
-
 
 
 
 // -------form-clear----------start
 function clearForm() {
-  // document.getElementById("Salutation").value = "";
-  // document.getElementById("firstName").value = "";
-  // document.getElementById("LastName").value = "";
-  // document.getElementById("Email").value = "";
-  // document.getElementById("Phone").value = "";
-
   const genderRadios = document.querySelectorAll('input[name="gender"]');
   genderRadios.forEach((radio) => {
     radio.checked = false;
   });
-  // document.getElementById('dob').value = "";
-  // document.getElementById("Qualifications").value = "";
-  // document.getElementById('Address').value = "";
-  // document.getElementById("country").value = "";
-  // document.getElementById("State").value = "";
-  // document.getElementById("City").value = "";
-  // document.getElementById("pin").value = "";
-  // document.getElementById('drop-area').value = "";
-
   const upload_file = document.getElementById("upload_file").form;
   upload_file.reset();
 
@@ -598,15 +545,12 @@ function clearForm() {
   const hidden = document.getElementById("hidden");
   hidden.style.display = "block";
   const cardImg = document.getElementById("card-img");
-
   cardImg.style.display = "block";
   const border = document.getElementById("img-view");
   border.style.width = "";
   const imageError = (document.getElementById("imageError").style.display = "block");
-
   get_emp();
 }
-
 
 
 
@@ -632,7 +576,6 @@ function validateForm() {
   const pin = document.getElementById("pin").value.trim();
 
   // regex validation
-
   const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
   const phonePattern = /^\d{10}$/;
   const namePattern = /^[A-Za-z]+$/;
@@ -741,16 +684,13 @@ femaleRadioButton.addEventListener("click", () => {
 });
 
 
-
-
-//--Clear the error messages ------------start
+//--Clear the error messages ------------
 function clearErrorMessages() {
   const errorElements = document.querySelectorAll(".error");
   errorElements.forEach(function (element) {
     element.textContent = "";
   });
 }
-// ---Clear the error messages-----------end
 
 
 
@@ -777,7 +717,6 @@ function editFormValidate() {
   const pin = document.getElementById("edit_pin").value.trim();
 
   // regex validation
-
   const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
   const phonePattern = /^\d{10}$/;
   const namePattern = /^[A-Za-z]+$/;

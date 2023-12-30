@@ -26,7 +26,7 @@ exports.renderLogin = (req, res) => {
 };
 
 exports.renderForgot = (req, res) => {
-    res.render("forgot-password'");
+    res.render("forgot-password");
 };
 
 exports.renderResetPassword = (req, res) => {
