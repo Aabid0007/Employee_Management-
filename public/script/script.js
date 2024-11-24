@@ -150,7 +150,7 @@ function get_emp() {
   const TotalCountOnPage = employeeCountChange.value;
 
   fetch(
-    `${API_URL}?page=${CurrentPage}&size=${TotalCountOnPage}`
+    `${API_URL}/api/employees?page=${CurrentPage}&size=${TotalCountOnPage}`
   )
     .then((Response) => {
       return Response.json();

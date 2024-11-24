@@ -195,7 +195,7 @@ function editEmployee(id) {
   
     console.log(formData);
   
-    fetch(`${API_URL}/${id}`, {
+    fetch(`${API_URL}/api/employees/${id}`, {
       method: "PUT",
       body: formData,
     })
