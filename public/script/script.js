@@ -4,7 +4,7 @@ function btn_filled() {
   const overlay = document.getElementsByClassName("overlay")[0];
   overlay.style.display = "block";
 }
-const API_URL = 'https://employee-management-38fu.onrender.com';
+
 
 // add_employee_close_btn
 function close_btn() {
@@ -276,7 +276,7 @@ addButton.addEventListener("click", (e) => {
   formData.append("username", firstName);
   formData.append("password", phone);
 
-  const apiUrl = "http://localhost:5001/api/employees";
+  const apiUrl = "https://employee-management-38fu.onrender.com/api/employees";
   fetch(apiUrl, {
     method: "POST",
     body: formData,
@@ -313,7 +313,7 @@ function open_delete_form(id) {
 
 // ........delete-Employee...........start
 function delete_employee(id) {
-  fetch(`http://localhost:5001/api/employees/${id}`, {
+  fetch(`https://employee-management-38fu.onrender.com/api/employees/${id}`, {
     method: "DELETE",
   })
     .then((response) => response.json())
@@ -351,7 +351,7 @@ function edit_btn(id) {
   overlay.style.display = "block";
 
   // .....edit_employee_data_insert.........start
-  fetch(`http://localhost:5001/api/employees/${id}`)
+  fetch(`https://employee-management-38fu.onrender.com/api/employees/${id}`)
     .then((Response) => {
       return Response.json();
     })
@@ -359,7 +359,7 @@ function edit_btn(id) {
       console.log(data);
 
       const edit_img = document.getElementById("edit_img");
-      edit_img.src = `http://localhost:5001/api/employees/${id}`;
+      edit_img.src = `https://employee-management-38fu.onrender.com/api/employees/${id}`;
       document.getElementById("edit_img").src = data.image;
       document.getElementById("edit_Salutation").value = data.salutation;
       document.getElementById("edit_firstName").value = data.firstName;
@@ -451,7 +451,7 @@ function editEmployee(id) {
 
   console.log(formData);
 
-  fetch(`http://localhost:5001/api/employees/${id}`, {
+  fetch(`https://employee-management-38fu.onrender.com/api/employees/${id}`, {
     method: "PUT",
     body: formData,
   })
@@ -479,7 +479,7 @@ function searchInput() {
   const noEmployeeMessage = document.getElementById("noEmployeeMessage");
 
   if (searchKey) {
-    fetch(`http://localhost:5001/api/employees/search/${searchKey}`)
+    fetch(`https://employee-management-38fu.onrender.com/api/employees/search/${searchKey}`)
       .then((response) => response.json())
       .then((data) => {
         employeeDisplay(data.employee, data.employee.length);

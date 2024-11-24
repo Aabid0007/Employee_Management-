@@ -168,7 +168,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
     user.resetTokenExpiration = Date.now() + tokenExpirationTime;
     await user.save();
 
-    const resetLink = `http://localhost:5001/reset-password?token=${token}`;
+    const resetLink = `https://employee-management-38fu.onrender.com/reset-password?token=${token}`;
     console.log(resetLink);
     await transporter.sendMail({
       to: email,

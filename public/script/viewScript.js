@@ -4,10 +4,10 @@ const id = url.searchParams.get('id');
 console.log(id);
 // -------------------------------------VIEW EMPLOYEE------------------------------- start
 viewDetails(id);
-const API_URL = 'https://employee-management-38fu.onrender.com';
+
 function viewDetails(id) {
 
-    fetch(`${API_URL}/${id}`)
+    fetch(`https://employee-management-38fu.onrender.com/api/employees/${id}`)
         .then(res => {
             return res.json();
         })
@@ -43,7 +43,7 @@ function changeformatYMD(DOB) {
 // -------------------------------------VIEW EMPLOYEE------------------------------------------------- End
 
 function deleteView(id) {
-    fetch(`${API_URL}/${id}`, {
+    fetch(`https://employee-management-38fu.onrender.com/api/employees/${id}`, {
         method: 'DELETE',
     }
     ).then(response => response.json())
@@ -108,14 +108,14 @@ function EditDetails() {
 
 
 // ...................edit_employee_data_insert...................start
-  fetch(`${API_URL}/${id}`)
+  fetch(`https://employee-management-38fu.onrender.com/api/employees/${id}`)
   .then(Response => {
       return Response.json();
   })
   .then(data => {
       console.log(data);
       const edit_img = document.getElementById("edit_img");
-      edit_img.src = `${API_URL}/${id}`;
+      edit_img.src = `https://employee-management-38fu.onrender.com/api/employees/${id}`;
       document.getElementById("edit_img").src = data.image;
       document.getElementById("edit_Salutation").value = data.salutation;
       document.getElementById("edit_firstName").value = data.firstName;
@@ -195,7 +195,7 @@ function editEmployee(id) {
   
     console.log(formData);
   
-    fetch(`${API_URL}/api/employees/${id}`, {
+    fetch(`https://employee-management-38fu.onrender.com/api/employees/${id}`, {
       method: "PUT",
       body: formData,
     })
