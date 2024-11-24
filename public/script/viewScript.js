@@ -4,7 +4,7 @@ const id = url.searchParams.get('id');
 console.log(id);
 // -------------------------------------VIEW EMPLOYEE------------------------------- start
 viewDetails(id);
-
+const API_URL = 'https://employee-management-38fu.onrender.com';
 function viewDetails(id) {
 
     fetch(`${API_URL}/${id}`)
