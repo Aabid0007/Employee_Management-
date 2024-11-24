@@ -150,7 +150,7 @@ function get_emp() {
   const TotalCountOnPage = employeeCountChange.value;
 
   fetch(
-    `${API_URL}/api/employees?page=${CurrentPage}&size=${TotalCountOnPage}`
+    `https://employee-management-38fu.onrender.com/api/employees?page=${CurrentPage}&size=${TotalCountOnPage}`
   )
     .then((Response) => {
       return Response.json();
@@ -276,8 +276,8 @@ addButton.addEventListener("click", (e) => {
   formData.append("username", firstName);
   formData.append("password", phone);
 
- 
-  fetch(API_URL, {
+  const apiUrl = "http://localhost:5001/api/employees";
+  fetch(apiUrl, {
     method: "POST",
     body: formData,
   })
@@ -313,7 +313,7 @@ function open_delete_form(id) {
 
 // ........delete-Employee...........start
 function delete_employee(id) {
-  fetch(`${API_URL}/${id}`, {
+  fetch(`http://localhost:5001/api/employees/${id}`, {
     method: "DELETE",
   })
     .then((response) => response.json())
@@ -351,7 +351,7 @@ function edit_btn(id) {
   overlay.style.display = "block";
 
   // .....edit_employee_data_insert.........start
-  fetch(`${API_URL}/${id}`)
+  fetch(`http://localhost:5001/api/employees/${id}`)
     .then((Response) => {
       return Response.json();
     })
@@ -359,7 +359,7 @@ function edit_btn(id) {
       console.log(data);
 
       const edit_img = document.getElementById("edit_img");
-      edit_img.src = `${API_URL}/${id}`;
+      edit_img.src = `http://localhost:5001/api/employees/${id}`;
       document.getElementById("edit_img").src = data.image;
       document.getElementById("edit_Salutation").value = data.salutation;
       document.getElementById("edit_firstName").value = data.firstName;
@@ -451,7 +451,7 @@ function editEmployee(id) {
 
   console.log(formData);
 
-  fetch(`${API_URL}/${id}`, {
+  fetch(`http://localhost:5001/api/employees/${id}`, {
     method: "PUT",
     body: formData,
   })
@@ -479,7 +479,7 @@ function searchInput() {
   const noEmployeeMessage = document.getElementById("noEmployeeMessage");
 
   if (searchKey) {
-    fetch(`${API_URL}/search/${searchKey}`)
+    fetch(`http://localhost:5001/api/employees/search/${searchKey}`)
       .then((response) => response.json())
       .then((data) => {
         employeeDisplay(data.employee, data.employee.length);
