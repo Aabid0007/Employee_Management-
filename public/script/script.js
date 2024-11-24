@@ -4,6 +4,7 @@ function btn_filled() {
   const overlay = document.getElementsByClassName("overlay")[0];
   overlay.style.display = "block";
 }
+const API_URL = 'https://employee-management-38fu.onrender.com';
 
 // add_employee_close_btn
 function close_btn() {
@@ -149,7 +150,7 @@ function get_emp() {
   const TotalCountOnPage = employeeCountChange.value;
 
   fetch(
-    `http://localhost:5001/api/employees?page=${CurrentPage}&size=${TotalCountOnPage}`
+    `${API_URL}?page=${CurrentPage}&size=${TotalCountOnPage}`
   )
     .then((Response) => {
       return Response.json();
@@ -275,8 +276,8 @@ addButton.addEventListener("click", (e) => {
   formData.append("username", firstName);
   formData.append("password", phone);
 
-  const apiUrl = "http://localhost:5001/api/employees";
-  fetch(apiUrl, {
+ 
+  fetch(API_URL, {
     method: "POST",
     body: formData,
   })
@@ -312,7 +313,7 @@ function open_delete_form(id) {
 
 // ........delete-Employee...........start
 function delete_employee(id) {
-  fetch(`http://localhost:5001/api/employees/${id}`, {
+  fetch(`${API_URL}/${id}`, {
     method: "DELETE",
   })
     .then((response) => response.json())
@@ -350,7 +351,7 @@ function edit_btn(id) {
   overlay.style.display = "block";
 
   // .....edit_employee_data_insert.........start
-  fetch(`http://localhost:5001/api/employees/${id}`)
+  fetch(`${API_URL}/${id}`)
     .then((Response) => {
       return Response.json();
     })
@@ -358,7 +359,7 @@ function edit_btn(id) {
       console.log(data);
 
       const edit_img = document.getElementById("edit_img");
-      edit_img.src = `http://localhost:5001/api/employees/${id}`;
+      edit_img.src = `${API_URL}/${id}`;
       document.getElementById("edit_img").src = data.image;
       document.getElementById("edit_Salutation").value = data.salutation;
       document.getElementById("edit_firstName").value = data.firstName;
@@ -450,7 +451,7 @@ function editEmployee(id) {
 
   console.log(formData);
 
-  fetch(`http://localhost:5001/api/employees/${id}`, {
+  fetch(`${API_URL}/${id}`, {
     method: "PUT",
     body: formData,
   })
@@ -478,7 +479,7 @@ function searchInput() {
   const noEmployeeMessage = document.getElementById("noEmployeeMessage");
 
   if (searchKey) {
-    fetch(`http://localhost:5001/api/employees/search/${searchKey}`)
+    fetch(`${API_URL}/search/${searchKey}`)
       .then((response) => response.json())
       .then((data) => {
         employeeDisplay(data.employee, data.employee.length);

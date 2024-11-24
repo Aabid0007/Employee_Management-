@@ -7,7 +7,7 @@ viewDetails(id);
 
 function viewDetails(id) {
 
-    fetch(`http://localhost:5001/api/employees/${id}`)
+    fetch(`${API_URL}/${id}`)
         .then(res => {
             return res.json();
         })
@@ -43,7 +43,7 @@ function changeformatYMD(DOB) {
 // -------------------------------------VIEW EMPLOYEE------------------------------------------------- End
 
 function deleteView(id) {
-    fetch(`http://localhost:5001/api/employees/${id}`, {
+    fetch(`${API_URL}/${id}`, {
         method: 'DELETE',
     }
     ).then(response => response.json())
@@ -108,14 +108,14 @@ function EditDetails() {
 
 
 // ...................edit_employee_data_insert...................start
-  fetch(`http://localhost:5001/api/employees/${id}`)
+  fetch(`${API_URL}/${id}`)
   .then(Response => {
       return Response.json();
   })
   .then(data => {
       console.log(data);
       const edit_img = document.getElementById("edit_img");
-      edit_img.src = `http://localhost:5001/api/employees/${id}`;
+      edit_img.src = `${API_URL}/${id}`;
       document.getElementById("edit_img").src = data.image;
       document.getElementById("edit_Salutation").value = data.salutation;
       document.getElementById("edit_firstName").value = data.firstName;
@@ -195,7 +195,7 @@ function editEmployee(id) {
   
     console.log(formData);
   
-    fetch(`http://localhost:5001/api/employees/${id}`, {
+    fetch(`${API_URL}/${id}`, {
       method: "PUT",
       body: formData,
     })
