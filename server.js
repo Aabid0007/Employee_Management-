@@ -8,40 +8,39 @@ const cookieParser = require("cookie-parser");
 const { sessionMid } = require("./authentication");
 const path = require("path");
 
-
+// importing_routes
 const employeeRoutes = require("./routes/employeeRoutes");
 const userRoutes = require('./routes/userRoutes');
 const viewControllerRoutes = require('./routes/viewControllerRoutes');
 
-connectDb().then(() => {
-  const app = express();
-  const port = process.env.PORT || 5000;
+
+const app = express();
+const port = process.env.PORT || 5000;
+connectDb();
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(sessionMid);
 
 
-  app.use(bodyParser.urlencoded({ extended: true }));
-  app.use(bodyParser.json());
-  app.use(cookieParser());
-  app.use(sessionMid);
-
-  
-  app.use(express.static("public"));
-  app.use("/uploads", express.static(path.resolve(__dirname, "uploads")));
-
- 
-  app.set("view engine", "ejs");
-  app.set("views", path.join(__dirname, "views"));
+app.use(express.static("public"));
+app.use(express.static(path.join()));
+app.use("/uploads", express.static(path.resolve(__dirname, 'uploads')));
 
 
-  app.use("/api/employees", employeeRoutes);
-  app.use("/api/users", userRoutes);
-  app.use("/", viewControllerRoutes);
+app.set('view engine', 'ejs'); 
+app.set('views', path.join(__dirname, 'views'));
 
-  app.use(errorHandler);
 
-  app.listen(port, () => {
-      console.log(`Server running on port ${port}`);
-  });
-}).catch((error) => {
-  console.error(" Database connection failed:", error);
-  process.exit(1); 
+app.use("/api/employees",employeeRoutes );
+app.use("/api/users",userRoutes);
+app.use("/", viewControllerRoutes)
+
+
+
+app.use(errorHandler);
+
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });
